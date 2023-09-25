@@ -7,7 +7,7 @@
 # EJERCICIO 0.5
 # DIAGRAMA página https://studies.cs.helsinki.fi/exampleapp/notes
 
-![Diagrama 0.5](./images/part0ex0.54Helsinki.png)
+![Diagrama 0.5](./images/part0ex0.5Helsinki.png)
 
 
 # EJERCICIO 0.6
