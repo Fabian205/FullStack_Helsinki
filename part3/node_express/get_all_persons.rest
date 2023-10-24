@@ -17,3 +17,26 @@ Content-Type: application/json
   "name": "Naomi Parra",
   "number": "0998265478"
 }
+
+###
+//testing displayed url in fly.io
+
+GET https://nodeexpress.fly.dev/
+
+###
+GET https://nodeexpress.fly.dev/api/persons
+
+###
+GET https://nodeexpress.fly.dev/api/persons/3
+
+###
+DELETE https://nodeexpress.fly.dev/api/persons/5
+
+###
+POST https://nodeexpress.fly.dev/api/persons
+Content-Type: application/json
+
+{
+  "name": "Roger Federer",
+  "number": "0998265466"
+}

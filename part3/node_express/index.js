@@ -126,3 +126,7 @@ app.listen(PORT, () => {
 //Deploy to fly.io
 //configure port, .gitignore y .env
 //iwr https://fly.io/install.ps1 -useb | iex
+//fly launch
+//fly deploy
+
+//https://nodeexpress.fly.dev/
