@@ -9,13 +9,19 @@
  |     3.8*: Phonebook backend step8                |                      
  |     3.9 phonebook backend step9                  |
  |     3.10 phonebook backend step10                |
+ |     3.11 phonebook full stack                    |
  ---------------------------------------------------*/
 
 
 const express = require("express");
 const morgan = require("morgan");
+const cors = require('cors');
 
 const app = express();
+
+const unknownEndpoint = (request, response) => {
+  response.status(404).send({ error: 'unknown endpoint' })
+}
 
 // Define a new token for morgan
 morgan.token('postData', (req) => {
@@ -27,11 +33,10 @@ app.use(morgan(':method :url :status :res[content-length] - :response-time ms :p
 
 //app.use(morgan('tiny'));
 
-const cors = require('cors')
-
 app.use(cors())
-
 app.use(express.json());
+app.use(express.static('build'))
+
 
 let persons = [
   { id: 1, name: "Ronny Parra", number: "0988011616" },
@@ -116,7 +121,7 @@ app.delete("/api/person/:id", (request, response) => {
   response.status(204).json("ok");
 });
 
-
+app.use(unknownEndpoint)
 
 const PORT = process.env.PORT || 3000
 app.listen(PORT, () => {
