@@ -4,6 +4,8 @@ import App from './App.jsx'
 import axios from "axios";
 import "./App.css";
 
+//ojo npm run server
+
 /* const persons = [
   {
     id: 1,
