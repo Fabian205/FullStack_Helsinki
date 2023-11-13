@@ -37,10 +37,11 @@ mongoose.set('strictQuery',false)
 })
 
 
-/* app.get('/', (request, response) => {
-  response.end('<h1>Hello World!</h1>')
+ app.get('/', (request, response) => {
+  response.end('<h1>FullStack Helsinki Part3!</h1>')
 }) 
 
+/*
 app.get('/api/persons', (request, response) => {
   response.header('Content-Type', 'application/json');
   response.end (JSON.stringify(persons,null,2))
@@ -60,7 +61,7 @@ app.post('/api/persons', async(request, response) => {
    return response.status(400).json({ error: 'content missing' })
  }
 
- // Verificar si ya existe una nota con el mismo contenido
+ // Verificar si ya existe una persona con el mismo contenido
  const existingPerson = await Person.findOne({ name: body.name })
 
  if (existingPerson) {
