@@ -71,7 +71,14 @@ mongoose.set('strictQuery',false)
 })
 
 
-/* app.get("/info", (request, response) => {
+/////////
+
+/*
+app.get("/", (request, response) => {
+  response.end("<h1>FullStack Helsinki Part3! api/persons</h1>");
+});
+
+app.get("/info", (request, response) => {
   request.requestTime = new Date();
   // Build response
   const entries = persons.length;
@@ -81,15 +88,15 @@ mongoose.set('strictQuery',false)
   `;
   // Enviar la respuesta al cliente
   response.send(resp);
-}); */
+});
 
-/* app.get("/api/persons", (request, response) => {
+ app.get("/api/persons", (request, response) => {
   //response.json(persons)
   request.header("Content-Type", "application/json");
   response.end(JSON.stringify(persons, null, 2));
-}); */
+}); 
 
-/* app.get("/api/persons/:id", (request, response) => {
+ app.get("/api/persons/:id", (request, response) => {
   const id = Number(request.params.id);
   const person = persons.find((person) => person.id === id);
   if (person) {
@@ -97,21 +104,14 @@ mongoose.set('strictQuery',false)
   } else {
     response.status(404).end();
   }
-}); */
+});
 
-
-/* app.delete('/api/persons/:id', (request, response) => {
-  const id = Number(request.params.id)
-  persons = persons.filter(person => person.id !== id)
-  response.status(204).json("ok")
-}) */
-
-/* const generateId = () => {
+const generateId = () => {
   const maxId = persons.length > 0 ? Math.max(...persons.map((n) => n.id)) : 0;
   return maxId + 1;
-}; */
+};
 
-/* app.post("/api/persons", (request, response) => {
+app.post("/api/persons", (request, response) => {
   const body = request.body;
 
   if (!body.name || !body.number) {
@@ -132,10 +132,20 @@ mongoose.set('strictQuery',false)
 
   persons = persons.concat(person);
   response.json(person);
-}); */
+});
+
+app.delete("/api/person/:id", (request, response) => {
+  const id = Number(request.params.id);
+  persons = persons.filter((person) => person.id !== id);
+  response.status(204).json("ok");
+});
+
+app.use(unknownEndpoint) */
+
+//////
 
 app.get("/", (request, response) => {
-  response.end("<h1>FullStack Helsinki Part3! api/persons</h1>");
+  response.end("<h1>FullStack Helsinki Part3 api/persons Mongodb!</h1>");
 });
 
 app.get('/api/persons', (request, response) => {
@@ -211,13 +221,7 @@ app.put('/api/persons/:id', async (req, res) => {
   }
 });
 
-/* app.delete("/api/person/:id", (request, response) => {
-  const id = Number(request.params.id);
-  persons = persons.filter((person) => person.id !== id);
-  response.status(204).json("ok");
-}); */
 
-app.use(unknownEndpoint)
 
 const PORT = process.env.PORT || 3000
 app.listen(PORT, () => {
@@ -229,6 +233,7 @@ app.listen(PORT, () => {
 ////run this command:
   //iwr https://fly.io/install.ps1 -useb | iex
 //fly launch
+//fly secrets set MONGO_DB_URI='mongodb+srv://fullstack:<password>@cluster0.o1opl.mongodb.net/?retryWrites=true&w=majority'
 //fly deploy
 
 //https://nodeexpress.fly.dev/
