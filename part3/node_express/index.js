@@ -59,7 +59,7 @@ app.use(express.json());
 ]; */
 
 
-//const url = "mongodb+srv://fullstack:helsinki2023@cluster1.xkzcyq6.mongodb.net/?retryWrites=true&w=majority";
+
 const url = process.env.MONGO_DB_URI;
 mongoose.set('strictQuery',false)
 
