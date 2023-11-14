@@ -59,7 +59,6 @@ app.use(express.json());
 ]; */
 
 
-
 const url = process.env.MONGO_DB_URI;
 mongoose.set('strictQuery',false)
 
@@ -70,11 +69,6 @@ mongoose.set('strictQuery',false)
 .catch((error) => {
   console.log('error connecting to MongoDB:', error.message)
 })
-
-
-app.get("/", (request, response) => {
-  response.end("<h1>FullStack Helsinki Part3! api/persons</h1>");
-});
 
 
 /* app.get("/info", (request, response) => {
@@ -89,18 +83,11 @@ app.get("/", (request, response) => {
   response.send(resp);
 }); */
 
-
 /* app.get("/api/persons", (request, response) => {
   //response.json(persons)
   request.header("Content-Type", "application/json");
   response.end(JSON.stringify(persons, null, 2));
 }); */
-
-app.get('/api/persons', (request, response) => {
-  Person.find({}).then(persons => {
-    response.json(persons)
-  })
-})
 
 /* app.get("/api/persons/:id", (request, response) => {
   const id = Number(request.params.id);
@@ -146,6 +133,16 @@ app.get('/api/persons', (request, response) => {
   persons = persons.concat(person);
   response.json(person);
 }); */
+
+app.get("/", (request, response) => {
+  response.end("<h1>FullStack Helsinki Part3! api/persons</h1>");
+});
+
+app.get('/api/persons', (request, response) => {
+  Person.find({}).then(persons => {
+    response.json(persons)
+  })
+})
 
 app.post('/api/persons', async(request, response) => {
   const body = request.body
