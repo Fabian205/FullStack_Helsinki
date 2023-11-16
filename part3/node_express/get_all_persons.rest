@@ -4,23 +4,33 @@ GET http://localhost:3000/
 GET http://localhost:3000/api/persons
 
 ###
-GET http://localhost:3000/api/persons/65405b368a4b0f6ec6bcde38
+GET http://localhost:3000/api/persons/655564f6940fa3ceeabbd36e
 
 ###
-DELETE http://localhost:3000/api/persons/6543a57f55ea568b6d0d61c8
+DELETE http://localhost:3000/api/persons/655564f6940fa3ceeabbd36e
 
 ###
 POST http://localhost:3000/api/persons
 Content-Type: application/json
 
 {
-  "name": "Ronny Parra Guerrero",
+  "name": "Erick Parra Guerrero7",
   "number": "0998264721"
 }
 
 ###
-//testing displayed url in fly.io
+PUT http://localhost:3000/api/persons/65556a1b2ee5e78a89a9199b
+Content-Type: application/json
 
+{
+  "name": "Fabian Aguilar",
+  "number": "0998264721"
+}
+
+
+###
+//testing displayed url in fly.io
+##
 GET https://nodeexpress.fly.dev/
 
 ###
