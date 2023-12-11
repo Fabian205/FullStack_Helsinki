@@ -124,3 +124,15 @@ app.put('/api/persons/:id', async (req, res) => {
 const PORT = 3000
 app.listen(PORT)
 console.log(`Server running on port ${PORT}`)
+
+
+//Deploy to fly.io
+//configure port, .gitignore y .env
+////run this command:
+//iwr https://fly.io/install.ps1 -useb | iex
+//fly launch
+//fly secrets set MONGO_DB_URI='mongodb+srv://fullstack:<password>@cluster0.o1opl.mongodb.net/?retryWrites=true&w=majority'
+//fly deploy
+
+//Se desplego al inicio luego al hacer cambios se bloqueo y ya pide tarjeta
+//https://nodeexpress.fly.dev/

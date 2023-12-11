@@ -6,10 +6,9 @@ import { useState, useEffect, useRef } from "react";
 import Filter from "./component/Filter";
 import PersonForm from "./component/PersonForm";
 import Persons from "./component/Persons";
-import axios from "axios";
+//import axios from "axios";
 import personService from "./services/persons";
 import Notification from "./component/Notification";
-
 
 const App = () => {
   const inputRef = useRef(null);
@@ -22,8 +21,8 @@ const App = () => {
   const [newPerson, setNewPerson] = useState("");
   const [newNumber, setNewNumber] = useState("");
   const [filter, setFilter] = useState("");
-  const [confirmaction, setConfirmaction] = useState("")
-  const [error, setError] = useState("")
+  const [confirmaction, setConfirmaction] = useState("");
+  const [error, setError] = useState("");
 
   /* useEffect(() => {
     //console.log("effect");
@@ -35,65 +34,87 @@ const App = () => {
 
   const hook = () => {
     //axios.get("http://localhost:3001/persons").then((response) => {
-    personService.getAll().then((initialNotes) => {
-      setPersons(initialNotes);
+    personService.getAll().then((initialPersons) => {
+      setPersons(initialPersons);
     });
     //setPersons(response.data);
   };
   useEffect(hook, []);
-  //console.log("render", persons.length, "notes");
+  //console.log("render", persons.length, "persons");
 
   const addPerson = (event) => {
     event.preventDefault();
+
+    // Check if the name has more than 2 characters
+    if (newPerson.length <= 2) {
+      //alert("Name must have more than 2 characters");
+      setConfirmaction(
+        `Person validation failed: name '${newPerson}' is shorter than the minimun allowed lenght (3)`
+      );
+      setTimeout(() => {
+        setConfirmaction(null);
+      }, 5000);
+      //setPersons(persons.filter((n) => n.id !== id));
+      return;
+    }
+
     const personObject = {
       name: newPerson,
       number: newNumber,
       id: persons.length + 1,
     };
 
-    if (persons.some((persons) => persons.name === newPerson && persons.number === newNumber)){
+    if (
+      persons.some(
+        (persons) => persons.name === newPerson && persons.number === newNumber
+      )
+    ) {
       //console.log("alert");
       alert(`${newPerson} is already added to phonebook`);
       setNewPerson("");
       setNewNumber("");
       inputRef.current.focus();
     } else if (
-      persons.some((persons) => persons.name === newPerson && persons.number !== newNumber)) {
-        const existingPerson = persons.find(
-          (persons) => persons.name === newPerson && persons.number !== newNumber
-        );
-        //console.log(existingPerson.name);
+      persons.some(
+        (persons) => persons.name === newPerson && persons.number !== newNumber
+      )
+    ) {
+      const existingPerson = persons.find(
+        (persons) => persons.name === newPerson && persons.number !== newNumber
+      );
+      //console.log(existingPerson.name);
       //alert(`${newPerson} is already added to phonebook, replace the older numbrer with a new one?`);
-      if(window.confirm(`${newPerson} is already added to phonebook, replace the old numbrer with a new one?`)){
+      if (
+        window.confirm(
+          `${newPerson} is already added to phonebook, replace the old numbrer with a new one?`
+        )
+      ) {
         //console.log(newNumber);
-        handleUpdateNumber(existingPerson.id , newPerson, newNumber);
+        handleUpdateNumber(existingPerson.id, newPerson, newNumber);
         setNewPerson("");
         setNewNumber("");
         inputRef.current.focus();
         setConfirmaction(
           `The number '${newNumber}' has been updated to '${newPerson}`
-        )        
-        setTimeout(() => {          
-          setConfirmaction(null)        
-        }, 5000)
-        setPersons(persons.filter((n) => n.id !== id));       
+        );
+        setTimeout(() => {
+          setConfirmaction(null);
+        }, 5000);
+        //setPersons(persons.filter((n) => n.id !== id));
       }
-      
     } else {
       //console.log("save here");
-      personService.create(personObject)
-      .then((returnetPerson) => {
+      personService.create(personObject).then((returnetPerson) => {
         setPersons(persons.concat(returnetPerson));
         setNewPerson("");
         setNewNumber("");
         setConfirmaction(
-          `This contact '${newPerson}' '${newNumber}' has been added to phonebook` 
-        )        
-        setTimeout(() => {          
-          setConfirmaction(null)        
-        }, 5000)
-        setPersons(persons.filter((n) => n.id !== id));
-        
+          `This contact '${newPerson}' '${newNumber}' has been added to phonebook`
+        );
+        setTimeout(() => {
+          setConfirmaction(null);
+        }, 5000);
+        //setPersons(persons.filter((n) => n.id !== id));
       });
     }
   };
@@ -106,38 +127,35 @@ const App = () => {
     setFilter(value);
   };
 
-const handleUpdateNumber=(id, newPerson, newNumber)=>{
-  //console.log("Update Number here", id, newNumber);
-  personService
-  .update(id,{name: newPerson, number: newNumber})
-  .then((updatePerson) => {
-    setPersons(persons.map((person) =>
-    persons.id===id? updatePerson:person)); 
-       
-  });
-
-}
+  const handleUpdateNumber = (id, newPerson, newNumber) => {
+    personService
+      .update(id, { name: newPerson, number: newNumber })
+      .then((updatePerson) => {
+        setPersons(
+          persons.map((person) => (person.id === id ? updatePerson : person))
+        );               
+      });
+  };
 
   const handleRemove = (id, name) => {
     if (window.confirm(`Delete ${name}?`)) {
-      personService.remove(id)
-      .then(() => {
-        setPersons(persons.filter((person) => person.id !== id));
-        setConfirmaction(`The '${name}' has been removed from server`)
-        setTimeout(() => {          
-          setConfirmaction(null)        
-        }, 5000)
-
-      })
-      .catch((error) => {
-        setError(
-          `The information of '${name}' has already been removed from server`
-        )        
-        setTimeout(() => {          
-          setError(null)        
-        }, 5000)
-        
-      });
+      personService
+        .remove(id)
+        .then(() => {
+          setPersons(persons.filter((person) => person.id !== id));
+          setConfirmaction(`The '${name}' has been removed from server`);
+          setTimeout(() => {
+            setConfirmaction(null);
+          }, 5000);
+        })
+        .catch((error) => {
+          setError(error,
+            `The information of '${name}' has already been removed from server`
+          );
+          setTimeout(() => {
+            setError(null);
+          }, 5000);
+        });
       setPersons(persons.filter((n) => n.id !== id));
     }
   };
@@ -145,7 +163,7 @@ const handleUpdateNumber=(id, newPerson, newNumber)=>{
   return (
     <div>
       <h2>Phonebook</h2>
-      <Notification message={confirmaction} messageError={error}/>
+      <Notification message={confirmaction} messageError={error} />
 
       <Filter value={filter} onChange={handleFilterChange} />
 
@@ -166,3 +184,6 @@ const handleUpdateNumber=(id, newPerson, newNumber)=>{
 };
 
 export default App;
+
+//npm run dev
+//npm run server

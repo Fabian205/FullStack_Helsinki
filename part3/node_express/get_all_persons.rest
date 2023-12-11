@@ -1,21 +1,22 @@
+
 GET http://localhost:3000/
 
 ###
 GET http://localhost:3000/api/persons
 
 ###
-GET http://localhost:3000/api/persons/655564f6940fa3ceeabbd36e
+GET http://localhost:3000/api/persons/6568eea85284abad11bb70c6
 
 ###
-DELETE http://localhost:3000/api/persons/655564f6940fa3ceeabbd36e
+DELETE http://localhost:3000/api/persons/655ca8ca0c1ae4c0bbda6590
 
 ###
 POST http://localhost:3000/api/persons
 Content-Type: application/json
 
 {
-  "name": "Erick Parra Guerrero7",
-  "number": "0998264721"
+  "name": "Juan Carlos Ferrero",
+  "number": "0998264720"
 }
 
 ###
@@ -27,26 +28,38 @@ Content-Type: application/json
   "number": "0998264721"
 }
 
+###
+GET http://localhost:3000/info
 
 ###
-//testing displayed url in fly.io
+//testing displayed url in render
+
 ##
-GET https://nodeexpress.fly.dev/
+GET https://helsinki-fullstack-nodeexpress.onrender.com/
 
 ###
-GET https://nodeexpress.fly.dev/api/persons
+GET https://helsinki-fullstack-nodeexpress.onrender.com/api/persons/
 
 ###
-GET https://nodeexpress.fly.dev/api/persons/3
+GET https://helsinki-fullstack-nodeexpress.onrender.com/api/persons/65405b368a4b0f6ec6bcde38
 
 ###
-DELETE https://nodeexpress.fly.dev/api/persons/5
+DELETE https://helsinki-fullstack-nodeexpress.onrender.com/api/persons/655cc51d33d9a6f7b2d1bce3
 
 ###
-POST https://nodeexpress.fly.dev/api/persons
+POST https://helsinki-fullstack-nodeexpress.onrender.com/api/persons
 Content-Type: application/json
 
 {
   "name": "Roger Federer",
   "number": "0998265466"
+}
+
+###
+PUT https://helsinki-fullstack-nodeexpress.onrender.com/api/persons/65405b368a4b0f6ec6bcde38
+Content-Type: application/json
+
+{
+  "name": "Fabian Aguilar",
+  "number": "0998264721"
 }
